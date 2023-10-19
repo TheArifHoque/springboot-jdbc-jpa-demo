@@ -36,4 +36,14 @@ public class CandidateServiceJdbc {
                 )
         );
     }
+
+    public List<CandidateJdbc> filterCandidate(String country, String name, String gender) {
+        return jdbcTemplate.query("select * from candidate_table where country=? and name=? or gender=?",
+               (rs, rowNum) -> new CandidateJdbc(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("gender"),
+                        rs.getString("country")
+                ), country,name,gender);
+    }
 }

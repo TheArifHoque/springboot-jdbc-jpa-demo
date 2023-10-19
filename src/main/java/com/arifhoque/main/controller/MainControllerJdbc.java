@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/jdbc")
@@ -27,5 +28,10 @@ public class MainControllerJdbc {
     @GetMapping("/all")
     public List<CandidateJdbc> getAllCandidate() {
         return candidateServiceJdbc.getAllCandidate();
+    }
+
+    @PostMapping("/filter")
+    public List<CandidateJdbc> filterCandidate(@RequestBody Map<String,String> request) {
+        return candidateServiceJdbc.filterCandidate(request.get("country"),request.get("name"), request.get("gender"));
     }
 }
